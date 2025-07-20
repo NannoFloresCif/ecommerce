@@ -14,6 +14,9 @@ function NavBar({ cartCount }) {
             <Link to="/agregar-producto">Agregar Producto</Link>
         </li>
         <li>
+  <         Link to="/editar-productos">Gestionar Productos</Link>
+        </li>
+        <li>
           <Link to="/carrito">Carrito ({cartCount})</Link>
         </li>
       </ul>

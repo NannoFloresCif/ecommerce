@@ -25,3 +25,10 @@
 .product-form button:hover {
   background-color: #218838;
 }
+
+.form-error {
+  color: #dc3545; /* Un color rojo para el error */
+  font-size: 0.8em;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
