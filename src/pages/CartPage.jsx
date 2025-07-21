@@ -25,7 +25,7 @@ function CartPage({ cartItems, onAddToCart, onDecrementItem, onRemoveFromCart })
                     <span>{item.quantity}</span>
                     <button onClick={() => onAddToCart(item)}>+</button>
                 </div>
-                <span className="item-price">Subtotal: ${item.price.toLocaleString('es-CL')}</span>
+                <span className="item-price">Subtotal: ${(item.price * item.quantity).toLocaleString('es-CL')}</span>
                 <button onClick={() => onRemoveFromCart(item.id)} className="remove-button">Quitar</button>
             </div>
             

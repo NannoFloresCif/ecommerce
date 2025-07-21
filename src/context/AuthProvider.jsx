@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { db, auth } from '../firebase/firebase';
 import { AuthContext } from './AuthContext.js';
 
 
@@ -9,7 +9,7 @@ import { AuthContext } from './AuthContext.js';
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const auth = getAuth();
+  
 
   // 3. useEffect para escuchar cambios en la autenticación
   useEffect(() => {
@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
 
     // Limpiamos el listener al desmontar el componente
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   // 4. Funciones para registrarse e iniciar sesión
   const signUp = async (email, password, nombre, apellido, tipoDeUsuario) => {

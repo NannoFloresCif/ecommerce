@@ -1,31 +1,30 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductForm from '../components/ProductForm';
 
-function EditProductPage({ products, onUpdateProduct }) {
-  // useParams nos da los parámetros de la URL, en este caso :productId
+
+function EditProductPage({ products, onUpdateProduct, uploading }) {
   const { productId } = useParams();
   const navigate = useNavigate();
-
-  // Buscamos el producto específico que se va a editar
+  
   const productToEdit = products.find(p => p.id === productId);
 
-  const handleUpdate = (updatedData) => {
-    onUpdateProduct(productId, updatedData);
-    // Después de actualizar, volvemos a la página de gestión
+  const handleUpdateSubmit = (formData, imageFile) => {
+    onUpdateProduct(productId, formData, imageFile);
     navigate('/editar-productos');
   };
+
+  if (!productToEdit) {
+    return <p>Producto no encontrado o cargando...</p>;
+  }
 
   return (
     <div style={{ padding: '20px' }}>
       <h2>Editar Producto</h2>
-      {productToEdit ? (
-        <ProductForm 
-          initialData={productToEdit} 
-          onFormSubmit={handleUpdate} 
-        />
-      ) : (
-        <p>Cargando producto...</p>
-      )}
+      <ProductForm 
+        initialData={productToEdit} 
+        onFormSubmit={handleUpdateSubmit}
+        uploading={uploading}
+      />
     </div>
   );
 }

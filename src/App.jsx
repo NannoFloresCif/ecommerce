@@ -21,7 +21,7 @@ function App() {
   //    - decrementItemQuantity: es una función que disminuye la cantidad de un producto en el carrito.
  
   const {cartItems, handleAddToCart, removeFromCart, decrementItemQuantity} = useCart();
-  const { products, handleAddProduct, handleDeleteProduct, handleEditProduct } = useProducts();
+  const { products, handleAddProduct, handleDeleteProduct, handleUpdateProduct, uploading } = useProducts();
 
   const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -33,9 +33,9 @@ function App() {
       <Routes>
         <Route path="/" element={<ProductList products={products} onAddToCart={handleAddToCart} />} />
         <Route path="/carrito" element={<CartPage cartItems={cartItems} onAddToCart={handleAddToCart} onRemoveFromCart={removeFromCart} onDecrementItem={decrementItemQuantity} />} />
-        <Route path="/agregar-producto" element={<AddProductPage onAddProduct={handleAddProduct} />}/>
+        <Route path="/agregar-producto" element={<AddProductPage onAddProduct={handleAddProduct} uploading={uploading}/>}/>
         <Route path="/editar-productos" element={<ManageProductsPage products={products} onDeleteProduct={handleDeleteProduct} />} />
-        <Route path="/editar-producto/:productId" element={<EditProductPage products={products} onUpdateProduct={handleEditProduct} />} />
+        <Route path="/editar-producto/:productId" element={<EditProductPage products={products} onUpdateProduct={handleUpdateProduct} uploading={uploading} />} />
         <Route path="/auth" element={<AuthPage />} />
       </Routes>  
     </>

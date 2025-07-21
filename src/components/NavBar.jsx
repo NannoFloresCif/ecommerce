@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.js';
 import '/src/styles/NavBar.css';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+
 
 // Recibimos la cantidad de items en el carrito como una prop
 function NavBar({ cartCount }) {
@@ -9,39 +9,40 @@ function NavBar({ cartCount }) {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-    await logOut();
-    navigate('/auth');
-    };
+    try {
+      await logOut();
+      navigate('/auth');
+    } catch (error) {
+      console.error("Error al cerrar sesión", error);
+    }
+  };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand as={Link} to="/">MiTienda</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Tienda</Nav.Link>
-            <Nav.Link as={Link} to="/carrito"><i className="bi bi-cart4 me-1" >({cartCount})</i></Nav.Link>
-            {user && user.tipoDeUsuario === 'administrador' && (
-              <>
-                <Nav.Link as={Link} to="/agregar-producto">Agregar Producto</Nav.Link>
-                <Nav.Link as={Link} to="/editar-productos">Gestionar Productos</Nav.Link>
-              </>
-            )}
-          </Nav>
-          <Nav>
-            {user ? (
-              <>
-                <Navbar.Text className="me-2">Hola, {user.nombre}</Navbar.Text>
-                <Button variant="outline-danger" size="sm" onClick={handleLogout}>Cerrar Sesión</Button>
-              </>
-            ) : (
-              <Nav.Link as={Link} to="/auth">Login / Registro</Nav.Link>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbar">
+      <Link to="/" className="navbar-brand">MiTienda</Link>
+      <ul className="navbar-links">
+        <li><Link to="/">Tienda</Link></li>
+        <li><Link to="/carrito">Carrito ({cartCount})</Link></li>
+
+        {user && user.tipoDeUsuario === 'administrador' && (
+          <>
+            <li><Link to="/agregar-producto">Agregar Producto</Link></li>
+            <li><Link to="/editar-productos">Gestionar Productos</Link></li>
+          </>
+        )}
+      </ul>
+      
+      <div className="navbar-auth">
+        {user ? (
+          <>
+            <span>Hola, {user.nombre}</span>
+            <button onClick={handleLogout} className="logout-btn">Cerrar Sesión</button>
+          </>
+        ) : (
+          <Link to="/auth">Login / Registro</Link>
+        )}
+      </div>
+    </nav>
   );
 }
 

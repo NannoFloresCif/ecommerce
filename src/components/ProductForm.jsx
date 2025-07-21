@@ -2,20 +2,11 @@ import { useState, useRef, useEffect } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
 import '/src/styles/ProductForm.css';
 
-function ProductForm({ initialData, onFormSubmit }) {
+function ProductForm({ onFormSubmit, initialData, uploading }) {
   const [formData, setFormData] = useState({
-    brand: '',
-    model: '',
-    description: '',
-    price: '',
-    stock: '',
+    brand: '', model: '', description: '', price: '', stock: '',
   });
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    }
-  }, [initialData]); // Se ejecuta cada vez que initialData cambia
+  const [imageFile, setImageFile] = useState(null);
 
   const validator = useRef(new SimpleReactValidator({
     messages: {
@@ -25,23 +16,31 @@ function ProductForm({ initialData, onFormSubmit }) {
     },
     element: (message) => <div className="form-error">{message}</div>
   }));
-
+  
   const [, forceUpdate] = useState();
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImageFile(e.target.files[0]);
+    }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Previene que la página se recargue
-     if (validator.current.allValid()) {
-        onFormSubmit(formData);
+    e.preventDefault();
+    if (validator.current.allValid()) {
+      onFormSubmit(formData, imageFile);
     } else {
-      // 6. Si no son válidos, mostramos los mensajes y forzamos el re-renderizado
       validator.current.showMessages();
       forceUpdate({});
     }
@@ -56,7 +55,7 @@ function ProductForm({ initialData, onFormSubmit }) {
       <label>Modelo:</label>
       <input type="text" name="model" value={formData.model} onChange={handleChange} />
       {validator.current.message('model', formData.model, 'required')}
-
+      
       <label>Descripción:</label>
       <textarea name="description" value={formData.description} onChange={handleChange} />
       {validator.current.message('description', formData.description, 'required')}
@@ -69,7 +68,19 @@ function ProductForm({ initialData, onFormSubmit }) {
       <input type="number" name="stock" value={formData.stock} onChange={handleChange} />
       {validator.current.message('stock', formData.stock, 'required|numeric|min:0,num')}
 
-      <button type="submit">{initialData ? 'Actualizar Producto' : 'Agregar Producto'}</button>
+      <label>Imagen del Producto:</label>
+      <input type="file" onChange={handleImageChange} />
+
+      {initialData && initialData.imageUrl && (
+        <div style={{ marginTop: '10px' }}>
+          <p>Imagen actual:</p>
+          <img src={initialData.imageUrl} alt="Vista previa" style={{ width: '100px' }} />
+        </div>
+      )}
+
+      <button type="submit" disabled={uploading}>
+        {uploading ? 'Guardando...' : (initialData ? 'Actualizar Producto' : 'Agregar Producto')}
+      </button>
     </form>
   );
 }
