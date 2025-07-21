@@ -7,6 +7,7 @@ import { useCart } from './hooks/useCart';
 import { useProducts } from './hooks/useProducts';
 import ManageProductsPage from './pages/ManageProductsPage';
 import EditProductPage from './pages/EditProductPage';
+import AuthPage from './pages/AuthPage';
 
 //import './App.css'
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/agregar-producto" element={<AddProductPage onAddProduct={handleAddProduct} />}/>
         <Route path="/editar-productos" element={<ManageProductsPage products={products} onDeleteProduct={handleDeleteProduct} />} />
         <Route path="/editar-producto/:productId" element={<EditProductPage products={products} onUpdateProduct={handleEditProduct} />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>  
     </>
   )

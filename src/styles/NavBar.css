@@ -27,3 +27,21 @@
 .navbar-links a:hover {
   text-decoration: underline;
 }
+
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.navbar-auth a {
+  color: white;
+  text-decoration: none;
+}
+.logout-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
