@@ -1,6 +1,7 @@
 
 import ProductCard from './ProductCard.jsx';    // Importamos la tarjeta
 import '/src/styles/ProductList.css'; // Importamos los estilos de la lista de productos
+import { Container, Row, Col } from 'react-bootstrap';
 
 function ProductList({ products, onAddToCart }) {
   return (

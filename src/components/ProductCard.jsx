@@ -1,4 +1,5 @@
 import '/src/styles/ProductCard.css';
+import { Card, Button } from 'react-bootstrap';
 
 function ProductCard({id, brand, model, description, price, stock, onAddToCart }) {
 

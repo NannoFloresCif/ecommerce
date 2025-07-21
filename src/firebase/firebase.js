@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBap2qJG6Isx3vU0LVLp-NeN5GbGwl7Ld8",
-  authDomain: "tienda-online-react-c1669.firebaseapp.com",
-  projectId: "tienda-online-react-c1669",
-  storageBucket: "tienda-online-react-c1669.firebasestorage.app",
-  messagingSenderId: "732859664085",
-  appId: "1:732859664085:web:72567683f61372f3d2045c"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
