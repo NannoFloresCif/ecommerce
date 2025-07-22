@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductForm from '../components/ProductForm';
+import '/src/styles/ProductForm.css';
 
 
 function EditProductPage({ products, onUpdateProduct, uploading }) {

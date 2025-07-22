@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
 import '/src/styles/ProductForm.css';
+import { Form, Button } from 'react-bootstrap';
 
 function ProductForm({ onFormSubmit, initialData, uploading }) {
   const [formData, setFormData] = useState({
@@ -47,29 +48,43 @@ function ProductForm({ onFormSubmit, initialData, uploading }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="product-form">
-      <label>Marca:</label>
-      <input type="text" name="brand" value={formData.brand} onChange={handleChange} />
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+      <Form.Label>Marca:</Form.Label>
+      <Form.Control type="text" name="brand" value={formData.brand} onChange={handleChange} />
       {validator.current.message('brand', formData.brand, 'required')}
+      </Form.Group>
 
-      <label>Modelo:</label>
-      <input type="text" name="model" value={formData.model} onChange={handleChange} />
+      <Form.Group className="mb-3">
+      <Form.Label>Modelo:</Form.Label>
+      <Form.Control type="text" name="model" value={formData.model} onChange={handleChange} />
       {validator.current.message('model', formData.model, 'required')}
-      
-      <label>Descripción:</label>
-      <textarea name="description" value={formData.description} onChange={handleChange} />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+      <Form.Label>Descripción:</Form.Label>
+      <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} />
       {validator.current.message('description', formData.description, 'required')}
+      </Form.Group>
+      
+      <Form.Group className="mb-3">
+        <Form.Label>Precio:</Form.Label>
+        <Form.Control type="number" name="price" value={formData.price} onChange={handleChange} />
+        {validator.current.message('price', formData.price, 'required|numeric|min:0,num')}
+      </Form.Group>
+      
+      <Form.Group className="mb-3"> 
 
-      <label>Precio:</label>
-      <input type="number" name="price" value={formData.price} onChange={handleChange} />
-      {validator.current.message('price', formData.price, 'required|numeric|min:0,num')}
-
-      <label>Stock:</label>
-      <input type="number" name="stock" value={formData.stock} onChange={handleChange} />
+      <Form.Label>Stock:</Form.Label>
+      <Form.Control type="number" name="stock" value={formData.stock} onChange={handleChange} />
       {validator.current.message('stock', formData.stock, 'required|numeric|min:0,num')}
+      </Form.Group>
 
-      <label>Imagen del Producto:</label>
-      <input type="file" onChange={handleImageChange} />
+      <Form.Group className="mb-3"> 
+
+      <Form.Label>Imagen del Producto:</Form.Label>
+      <Form.Control type="file" onChange={handleImageChange} />
+      </Form.Group>
 
       {initialData && initialData.imageUrl && (
         <div style={{ marginTop: '10px' }}>
@@ -78,10 +93,10 @@ function ProductForm({ onFormSubmit, initialData, uploading }) {
         </div>
       )}
 
-      <button type="submit" disabled={uploading}>
+      <Button variant="success" type="submit" disabled={uploading}>
         {uploading ? 'Guardando...' : (initialData ? 'Actualizar Producto' : 'Agregar Producto')}
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

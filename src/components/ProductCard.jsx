@@ -5,22 +5,31 @@ function ProductCard({ id, brand, model, description, price, stock, imageUrl, on
  
 
   return (
-    <div className="product-card">
-      <img
+    <Card className="h-100 shadow-sm">
+      <Card.Img 
+        variant="top" 
         src={imageUrl || "https://via.placeholder.com/250"}
-        alt={`Imagen de ${brand} ${model}`}
-        className="product-card-image"
+        style={{ height: '200px', objectFit: 'cover' }}
       />
-      <div className="product-card-body">
-        <h3 className="product-card-title">{brand} - {model}</h3>
-        <p className="product-card-description">{description}</p>
-        <h4 className="product-card-price">${Number(price).toLocaleString('es-CL')}</h4>
-        <p className="product-card-stock">Stock disponible: {stock}</p>
-        <button className="product-card-button" onClick={() => onAddToCart({id, brand, model, description, price, stock, imageUrl})}>
-          Agregar al Carrito
-        </button>
-      </div>
-    </div>
+      <Card.Body className="d-flex flex-column">
+        <Card.Title>{brand} - {model}</Card.Title>
+        <Card.Text className="flex-grow-1">
+          {description}
+        </Card.Text>
+        <Card.Subtitle className="mb-2 text-muted">
+          Stock: {stock}
+        </Card.Subtitle>
+        <Card.Title as="h4">${Number(price).toLocaleString('es-CL')}</Card.Title>
+        <Button 
+          variant="primary" 
+          onClick={() => onAddToCart({ id, brand, model, description, price, stock, imageUrl, onAddToCart })} 
+          className="mt-auto"
+          disabled={stock === 0}
+        >
+          {stock > 0 ? 'Agregar al Carrito' : 'Sin Stock'}
+        </Button>
+      </Card.Body>
+    </Card>
   );
 }
 

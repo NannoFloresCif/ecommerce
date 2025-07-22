@@ -27,11 +27,11 @@
 .navbar-links a:hover {
   text-decoration: underline;
 }
-
 .navbar-auth {
   display: flex;
   align-items: center;
   gap: 15px;
+  color: white;
 }
 .navbar-auth a {
   color: white;

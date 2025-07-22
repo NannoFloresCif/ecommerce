@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '/src/styles/ProductForm.css'; // Reutilizaremos los estilos del otro formulario
+import { Form, Button } from 'react-bootstrap';
 
 function AuthForm({ onFormSubmit, isRegisterMode }) {
   const [formData, setFormData] = useState({
@@ -26,40 +27,55 @@ function AuthForm({ onFormSubmit, isRegisterMode }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="product-form">
+    <Form onSubmit={handleSubmit}>
       {/* Campos que aparecen solo en modo registro */}
       {isRegisterMode && (
         <>
-          <label>Nombre:</label>
-          <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+        <Form.Group className="mb-3">
+          <Form.Label>Nombre:</Form.Label>
+          <Form.Control type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+        </Form.Group>
 
-          <label>Apellido:</label>
-          <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} required />
+        <Form.Group className="mb-3">
+          <Form.Label>Apellido:</Form.Label>
+          <Form.Control type="text" name="apellido" value={formData.apellido} onChange={handleChange} required />
+        </Form.Group>
+
         </>
       )}
 
-      <label>Email:</label>
-      <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+      <Form.Group className="mb-3">
+      <Form.Label>Email:</Form.Label>
+      <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
+      </Form.Group>
 
-      <label>Contraseña:</label>
-      <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+      <Form.Group className="mb-3">
+      <Form.Label>Contraseña:</Form.Label>
+      <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} required />
+      </Form.Group>
+
 
       {/* Campo extra para confirmar contraseña en modo registro */}
       {isRegisterMode && (
         <>
-          <label>Confirmar Contraseña:</label>
-          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+          <Form.Group className="mb-3">
+            <Form.Label>Confirmar Contraseña:</Form.Label>
+            <Form.Control type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+          </Form.Group>
 
-          <label>Tipo de Usuario:</label>
-          <select name="tipoDeUsuario" value={formData.tipoDeUsuario} onChange={handleChange}>
-            <option value="cliente">Cliente</option>
-            <option value="administrador">Administrador</option>
-          </select>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Tipo de Usuario</Form.Label>
+            <Form.Control as="select" name="tipoDeUsuario" value={formData.tipoDeUsuario} onChange={handleChange}>
+              <option value="cliente">Cliente</option>
+              <option value="administrador">Administrador</option>
+            </Form.Control>
+          </Form.Group>
         </>
       )}
 
-      <button type="submit">{isRegisterMode ? 'Registrarse' : 'Iniciar Sesión'}</button>
-    </form>
+      <Button type="submit">{isRegisterMode ? 'Registrarse' : 'Iniciar Sesión'}</Button>
+    </Form>
   );
 }
 

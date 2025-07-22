@@ -8,10 +8,11 @@
 .product-form label {
   font-weight: bold;
 }
-.product-form input, .product-form textarea {
+.product-form input, .product-form textarea, .product-form select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1em;
 }
 .product-form button {
   padding: 10px 15px;
@@ -25,9 +26,12 @@
 .product-form button:hover {
   background-color: #218838;
 }
-
+.product-form button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
 .form-error {
-  color: #dc3545; /* Un color rojo para el error */
+  color: #dc3545;
   font-size: 0.8em;
   margin-top: -5px;
   margin-bottom: 5px;
